@@ -1,4 +1,5 @@
 import re
+import time
 
 def find_horizontal(lines):
     s = 0
@@ -21,7 +22,9 @@ def find_diagonals(lines):
 lines = [line.strip() for line in open("data/day4.txt")]
 
 l = len(lines[0])
+start = time.time()
 print(find_horizontal(lines) + find_vertical(lines)+ find_diagonals(lines))
+print("{} seconds".format(time.time() - start))
 
 
 
