@@ -15,23 +15,26 @@ class Map:
         return (len(self.lines), len(self.lines[0]))
 
     def diagonals(self):
-        res = []
         l, w = self.dimensions()
-        for i in range(l):
-            dur = []
-            dul = []
-            dll = []
-            dlr = []
-            for j in range(w - i):
-                dur.append((self.lines[j][j+i], j, j+i))
-                dul.append((self.lines[j][w-j-i-1], j, w-j-i-1))
-                if i > 0:
-                    dll.append((self.lines[i+j][j], i+j, j))
-                    dlr.append((self.lines[i+j][w-j-1], i+j, w-j-1))
-            res.extend([dur, dul])
-            if i > 0:
-                res.extend([dll, dlr])
-        return res
+        return ([[(self.lines[j][j+i], j, j+i) for j in range(w-i)] for i in range(l)] +
+            [[(self.lines[i+j][j], i+j, j) for j in range(w-i)] for i in range(1, l)] +
+            [[(self.lines[j][w-j-i-1], j, w-j-i-1) for j in range(w-i)] for i in range(l)] +
+            [[(self.lines[i+j][w-j-1], i+j, w-j-1) for j in range(w-i)] for i in range(1, l)])
+        # for i in range(l):
+        #     dur = []
+        #     dul = []
+        #     dll = []
+        #     dlr = []
+        #     for j in range(w - i):
+        #         dur.append()
+        #         dul.append()
+        #         if i > 0:
+        #             dll.append((self.lines[i+j][j], i+j, j))
+        #             dlr.append((self.lines[i+j][w-j-1], i+j, w-j-1))
+        #     res.extend([dur, dul])
+        #     if i > 0:
+        #         res.extend([dll, dlr])
+        # return res
     
     def verticals(self):
         l, w = self.dimensions()
@@ -102,7 +105,7 @@ class Day4Problem1:
         return dict(stars=stars)
 
 
-problem = Day4Problem1(filename="data/day4-sample.txt")
-problem.json(filename="data/day4-sample.json")
+problem = Day4Problem1(filename="data/day4.txt")
+problem.json(filename="data/day4.json")
 
 
